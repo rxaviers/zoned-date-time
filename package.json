@@ -1,0 +1,56 @@
+{
+  "name": "zoned-date-time",
+  "version": "0.0.0",
+  "description": "A tiny JavaScript Date with full IANA timezone support",
+  "main": "src/zoned-date-time.js",
+  "files": [
+    "dist/",
+    "getting_started.js",
+    "LICENSE-MIT",
+    "README.md",
+    "src/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/rxaviers/zoned-date-time.git"
+  },
+  "keywords": [
+    "date",
+    "time",
+    "datetime",
+    "timezone",
+    "zone",
+    "metazone",
+    "iana"
+  ],
+  "author": {
+    "name": "Rafael Xavier de Souza",
+    "email": "rxaviers@gmail.com",
+    "url": "http://rafael.xavier.blog.br"
+  },
+  "contributors": [
+    "Ramalingam Kandaswamy Manikandan"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rxaviers/zoned-date-time/issues"
+  },
+  "homepage": "https://github.com/rxaviers/zoned-date-time#readme",
+  "scripts": {
+    "test": "eslint --ext .js src && mocha",
+    "build": "npm test && mkdir -p dist && rm -f dist/* && echo Building dist/zoned-date-time.js && babel src/zoned-date-time.js -o dist/zoned-date-time.js && echo Done"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.7.7",
+    "babel-core": "^6.7.7",
+    "babel-eslint": "^6.0.4",
+    "babel-preset-es2015": "^6.6.0",
+    "chai": "^3.5.0",
+    "cldr-data": ">=29.0.1",
+    "eslint": "^3.18.0",
+    "eslint-config-defaults": "^9.0.0",
+    "iana-tz-data": ">=2017.1.0",
+    "mocha": "^2.4.5",
+    "sinon": "^1.17.3"
+  }
+}
