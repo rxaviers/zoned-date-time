@@ -65,6 +65,8 @@ ZonedDateTime.prototype.getMilliseconds = function() {
   return this.local.getUTCMilliseconds();
 };
 
+// Note: Define .valueOf = .getTime for arithmetic operations like date1 - date2.
+ZonedDateTime.prototype.valueOf =
 ZonedDateTime.prototype.getTime = function() {
   return this.local.getTime() + this.getTimezoneOffset() * 60 * 1000;
 };
