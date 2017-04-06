@@ -1,6 +1,6 @@
 # ZonedDateTime
 
-A tiny (0.6KB) JavaScript Date object with [IANA timezone](https://www.iana.org/time-zones) support.
+A tiny (0.6KB) JavaScript Date with [IANA timezone](https://www.iana.org/time-zones) support.
 
 ## Usage
 
