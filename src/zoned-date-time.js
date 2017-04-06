@@ -1,3 +1,9 @@
+function definePrivateProperty(object, property, value) {
+  Object.defineProperty(object, property, {
+    value: value
+  });
+}
+
 function getUntilsIndex(original, untils) {
   var index = 0;
   var originalTime = original.getTime();
@@ -9,24 +15,24 @@ function getUntilsIndex(original, untils) {
   return index;
 }
 
-var ZonedDateTime = function(date, timeZoneData) {
-  this.original = new Date(date.getTime());
-  this.local = new Date(date.getTime());
-  this.isZonedDateTime = true;
-  this.timeZoneData = timeZoneData;
-  if (!(timeZoneData.untils && timeZoneData.offsets && timeZoneData.isdsts)) {
-    throw new Error("Invalid IANA data");
-  }
-  this.setTime(this.local.getTime() - this.getTimezoneOffset() * 60 * 1000);
-};
-
-ZonedDateTime.prototype.setWrap = function(fn) {
+function setWrap(fn) {
   var offset1 = this.getTimezoneOffset();
   var ret = fn();
   this.original = new Date(this.getTime());
   var offset2 = this.getTimezoneOffset();
   this.original.setMinutes(this.original.getMinutes() + offset2 - offset1);
   return ret;
+}
+
+var ZonedDateTime = function(date, timeZoneData) {
+  definePrivateProperty(this, "original", new Date(date.getTime()));
+  definePrivateProperty(this, "local", new Date(date.getTime()));
+  definePrivateProperty(this, "timeZoneData", timeZoneData);
+  definePrivateProperty(this, "setWrap", setWrap);
+  if (!(timeZoneData.untils && timeZoneData.offsets && timeZoneData.isdsts)) {
+    throw new Error("Invalid IANA data");
+  }
+  this.setTime(this.local.getTime() - this.getTimezoneOffset() * 60 * 1000);
 };
 
 ZonedDateTime.prototype.clone = function() {
