@@ -144,4 +144,12 @@ ZonedDateTime.prototype.isDST = function() {
   return Boolean(this.timeZoneData.isdsts[index]);
 };
 
+ZonedDateTime.prototype.inspect = function() {
+  var index = getUntilsIndex(this.original, this.timeZoneData.untils);
+  var abbrs = this.timeZoneData.abbrs;
+  return this.local.toISOString().replace(/Z$/, "") + " " +
+    (abbrs && abbrs[index] + " " || (this.getTimezoneOffset() * -1) + " ") +
+    (this.isDST() ? "(daylight savings)" : "");
+};
+
 module.exports = ZonedDateTime;
