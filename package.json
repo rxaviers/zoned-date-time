@@ -1,6 +1,6 @@
 {
   "name": "zoned-date-time",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A tiny JavaScript Date with full IANA timezone support",
   "main": "src/zoned-date-time.js",
   "files": [
