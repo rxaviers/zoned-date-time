@@ -52,4 +52,15 @@ describe("zoned-date-time", function() {
       {isDST: false}
     );
   });
+
+  describe(".clone()", function() {
+    it("should return a cloned copy", function() {
+      var date = new ZonedDateTime(new Date(), zoneData.America.Sao_Paulo);
+      expect(date).to.deep.equal(date.clone());
+
+      // Test clone after changing date.
+      date.setMonth( date.getMonth() - 1 );
+      expect(date).to.deep.equal(date.clone());
+    });
+  });
 });
