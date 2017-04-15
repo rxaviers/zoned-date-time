@@ -18,7 +18,7 @@ function getUntilsIndex(original, untils) {
 function setWrap(fn) {
   var offset1 = this.getTimezoneOffset();
   var ret = fn();
-  this.original = new Date(this.getTime());
+  this.original.setTime(new Date(this.getTime()));
   var offset2 = this.getTimezoneOffset();
   this.original.setMinutes(this.original.getMinutes() + offset2 - offset1);
   return ret;
