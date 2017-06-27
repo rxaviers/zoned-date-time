@@ -41,37 +41,15 @@ ZonedDateTime.prototype.clone = function() {
   return new ZonedDateTime(this.original, this.timeZoneData);
 };
 
-ZonedDateTime.prototype.getFullYear = function() {
-  return this.local.getUTCFullYear();
-};
-
-ZonedDateTime.prototype.getMonth = function() {
-  return this.local.getUTCMonth();
-};
-
-ZonedDateTime.prototype.getDate = function() {
-  return this.local.getUTCDate();
-};
-
-ZonedDateTime.prototype.getDay = function() {
-  return this.local.getUTCDay();
-};
-
-ZonedDateTime.prototype.getHours = function() {
-  return this.local.getUTCHours();
-};
-
-ZonedDateTime.prototype.getMinutes = function() {
-  return this.local.getUTCMinutes();
-};
-
-ZonedDateTime.prototype.getSeconds = function() {
-  return this.local.getUTCSeconds();
-};
-
-ZonedDateTime.prototype.getMilliseconds = function() {
-  return this.local.getUTCMilliseconds();
-};
+// Date field getters.
+["getFullYear", "getMonth", "getDate", "getDay", "getHours", "getMinutes",
+"getSeconds", "getMilliseconds"].forEach(function(method) {
+  // Corresponding UTC method, e.g., "getUTCFullYear" if method === "getFullYear".
+  var utcMethod = "getUTC" + method.substr(3);
+  ZonedDateTime.prototype[method] = function() {
+    return this.local[utcMethod]();
+  };
+});
 
 // Note: Define .valueOf = .getTime for arithmetic operations like date1 - date2.
 ZonedDateTime.prototype.valueOf =
@@ -84,58 +62,19 @@ ZonedDateTime.prototype.getTimezoneOffset = function() {
   return this.timeZoneData.offsets[index];
 };
 
-ZonedDateTime.prototype.setFullYear = function(year) {
-  var local = this.local;
-  return this.setWrap(function() {
-    return local.setUTCFullYear(year);
-  });
-};
-
-ZonedDateTime.prototype.setMonth = function(month) {
-  var local = this.local;
-  return this.setWrap(function() {
-    return local.setUTCMonth(month);
-  });
-};
-
-ZonedDateTime.prototype.setDate = function(date) {
-  var local = this.local;
-  return this.setWrap(function() {
-    return local.setUTCDate(date);
-  });
-};
-
-ZonedDateTime.prototype.setHours = function(hour) {
-  var local = this.local;
-  return this.setWrap(function() {
-    return local.setUTCHours(hour);
-  });
-};
-
-ZonedDateTime.prototype.setMinutes = function(minutes) {
-  var local = this.local;
-  return this.setWrap(function() {
-    return local.setUTCMinutes(minutes);
-  });
-};
-
-ZonedDateTime.prototype.setSeconds = function(seconds) {
-  var local = this.local;
-
-  // setWrap is needed here just because abs(seconds) could be >= a minute.
-  return this.setWrap(function() {
-    return local.setUTCSeconds(seconds);
-  });
-};
-
-ZonedDateTime.prototype.setMilliseconds = function(milliseconds) {
-  var local = this.local;
-
-  // setWrap is needed here just because abs(seconds) could be >= a minute.
-  return this.setWrap(function() {
-    return local.setUTCMilliseconds(milliseconds);
-  });
-};
+// Date field setters.
+["setFullYear", "setMonth", "setDate", "setHours", "setMinutes", "setSeconds", "setMilliseconds"].forEach(function(method) {
+  // Corresponding UTC method, e.g., "setUTCFullYear" if method === "setFullYear".
+  var utcMethod = "setUTC" + method.substr(3);
+  ZonedDateTime.prototype[method] = function(value) {
+    var local = this.local;
+    // Note setWrap is needed for seconds and milliseconds just because
+    // abs(value) could be >= a minute.
+    return this.setWrap(function() {
+      return local[utcMethod](value);
+    });
+  };
+});
 
 ZonedDateTime.prototype.setTime = function(time) {
   return this.local.setTime(time);
