@@ -93,4 +93,15 @@ ZonedDateTime.prototype.inspect = function() {
     (this.isDST() ? "(daylight savings)" : "");
 };
 
+ZonedDateTime.prototype.toDate = function() {
+  return new Date(this.getTime());
+};
+
+// Type cast getters.
+["toISOString", "toJSON", "toUTCString"].forEach(function(method) {
+  ZonedDateTime.prototype[method] = function() {
+    return this.toDate()[method]();
+  };
+});
+
 module.exports = ZonedDateTime;

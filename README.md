@@ -161,6 +161,22 @@ Sets the numeric value corresponding to the time for the specified date accordin
 
 An integer representing the number of milliseconds since 1 January 1970, 00:00:00 UTC.
 
+#### `.toDate()`
+
+Returns the corresponding `Date` object, i.e., the equivalent date in the runtime time zone.
+
+#### `.toISOString()`
+
+Returns a string in *simplified* extended ISO format ([ISO 8601](http://en.wikipedia.org/wiki/ISO_8601)), which is always 24 or 27 characters long (**YYYY-MM-DDTHH:mm:ss.sssZ** or **±YYYYYY-MM-DDTHH:mm:ss.sssZ**`, respectively`). The timezone is always zero UTC offset, as denoted by the suffix "`Z`".
+
+#### `.toJSON()`
+
+Returns a string representation of the [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
+
+#### `.toUTCString()`
+
+Converts a date to a string, using the UTC time zone.
+
 ## License
 
 MIT © [Rafael Xavier de Souza](http://rafael.xavier.blog.br)
