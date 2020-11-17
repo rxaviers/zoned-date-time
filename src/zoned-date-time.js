@@ -104,4 +104,6 @@ ZonedDateTime.prototype.toDate = function() {
   };
 });
 
-module.exports = ZonedDateTime;
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = ZonedDateTime;
+}
